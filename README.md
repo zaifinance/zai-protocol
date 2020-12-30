@@ -1,4 +1,4 @@
-# zai
+# Zero Collateral Dai
 
 A capital-efficient synthetic stablecoin for DeFi.
 
@@ -35,7 +35,8 @@ is available [here](https://github.com/emptysetsquad/dollar/blob/master/audit/RE
 this project is an experiment - the protocol is audited, and we've put a significant amount of work into testing as well as generally de-risking the design of its core mechanism, however participants should take great caution as bugs resulting in loss of funds are always a possibility.
 
 ```
-Copyright 2020 Zero Collateral Devs <zaifinance@protonmail.com>, standing on the shoulders of the Empty Set Squad.
+Copyright 2020 Zero Collateral Devs <zaifinance@protonmail.com>, standing on
+the shoulders of the Empty Set Squad.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use the included code except in compliance with the License.
