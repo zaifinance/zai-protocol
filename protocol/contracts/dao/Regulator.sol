@@ -105,6 +105,7 @@ contract Regulator is Comptroller {
             return Decimal.one();
         }
 
-        return price;
+        // Note: Price comes in x 1e12, normalize here
+        return price.div(1e12);
     }
 }
