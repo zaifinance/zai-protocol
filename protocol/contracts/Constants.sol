@@ -56,7 +56,7 @@ library Constants {
     uint256 private constant GOVERNANCE_EMERGENCY_DELAY = 96; // 2 cycles
 
     /* DAO */
-    uint256 private constant ADVANCE_INCENTIVE = 1e20; // 100 ZAI
+    uint256 private constant ADVANCE_INCENTIVE_IN_DAI = 125 * 10**18; // 125 DAI
     uint256 private constant DAO_EXIT_LOCKUP_EPOCHS = 240; // 5 cycles fluid
 
     /* Pool */
@@ -151,7 +151,7 @@ library Constants {
     }
 
     function getAdvanceIncentive() internal pure returns (uint256) {
-        return ADVANCE_INCENTIVE;
+        return ADVANCE_INCENTIVE_IN_DAI;
     }
 
     function getDAOExitLockupEpochs() internal pure returns (uint256) {

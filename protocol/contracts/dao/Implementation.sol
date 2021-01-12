@@ -32,12 +32,33 @@ contract Implementation is State, Bonding, Market, Regulator, Govern {
 
     function initialize() public initializer {
         // Reward committer
-        incentivize(msg.sender, Constants.getAdvanceIncentive());
+        incentivize(msg.sender, advanceIncentive());
         // Dev rewards
     }
 
+    function zaiMultiplier() internal returns (Decimal.D256 memory) {
+        (Decimal.D256 memory price, bool valid) = oracle().capture();
+
+        if (!valid) {
+            // we assume 1 ZAI == 0.25$
+            price = Decimal.one().div(4);
+        } else {
+            // price comes multiplied by 1e12
+            price = price.div(1e12);
+        }
+
+        // under the hood it works like:
+        // 10**18 * 10**18 / price
+        // so that it does not loose precision
+        return Decimal.one().div(price);
+    }
+
+    function advanceIncentive() public returns (uint256) {
+        return zaiMultiplier().mul(Constants.getAdvanceIncentive()).asUint256();
+    }
+
     function advance() external {
-        incentivize(msg.sender, Constants.getAdvanceIncentive());
+        incentivize(msg.sender, advanceIncentive());
 
         Bonding.step();
         Regulator.step();
