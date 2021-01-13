@@ -39,12 +39,12 @@ contract Regulator is Comptroller {
     function step() internal {
         Decimal.D256 memory price = oracleCapture();
 
-        if (price.greaterThan(Decimal.one())) {
+        if (price.greaterThan(Constants.stablePrice())) {
             growSupply(price);
             return;
         }
 
-        if (price.lessThan(Decimal.one())) {
+        if (price.lessThan(Constants.stablePrice())) {
             shrinkSupply(price);
             return;
         }
@@ -53,7 +53,7 @@ contract Regulator is Comptroller {
     }
 
     function shrinkSupply(Decimal.D256 memory price) private {
-        Decimal.D256 memory delta = limit(Decimal.one().sub(price), price);
+        Decimal.D256 memory delta = limit(Constants.stablePrice().sub(price), price);
         uint256 newDebt = delta.mul(totalNet()).asUint256();
         uint256 cappedNewDebt = increaseDebt(newDebt);
 
@@ -64,7 +64,7 @@ contract Regulator is Comptroller {
     function growSupply(Decimal.D256 memory price) private {
         uint256 lessDebt = resetDebt(Decimal.zero());
 
-        Decimal.D256 memory delta = limit(price.sub(Decimal.one()), price);
+        Decimal.D256 memory delta = limit(price.sub(Constants.stablePrice()), price);
         uint256 newSupply = delta.mul(totalNet()).asUint256();
         (uint256 newRedeemable, uint256 newBonded) = increaseSupply(newSupply);
         emit SupplyIncrease(
@@ -87,7 +87,7 @@ contract Regulator is Comptroller {
         uint256 totalRedeemable = totalRedeemable();
         uint256 totalCoupons = totalCoupons();
         if (
-            price.greaterThan(Decimal.one()) && (totalRedeemable < totalCoupons)
+            price.greaterThan(Constants.stablePrice()) && (totalRedeemable < totalCoupons)
         ) {
             supplyChangeLimit = Constants.getCouponSupplyChangeLimit();
         }

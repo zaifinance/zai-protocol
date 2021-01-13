@@ -130,6 +130,10 @@ library Constants {
         return Decimal.D256({value: GOVERNANCE_QUORUM});
     }
 
+    function stablePrice() internal pure returns (Decimal.D256 memory) {
+        return Decimal.one().div(4);
+    }
+
     function getGovernanceProposalThreshold()
         internal
         pure
