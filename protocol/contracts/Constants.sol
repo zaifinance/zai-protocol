@@ -57,6 +57,8 @@ library Constants {
 
     /* DAO */
     uint256 private constant ADVANCE_INCENTIVE_IN_DAI = 75 * 10**18; // 75 DAI
+    uint256 private constant ADVANCE_INCENTIVE_IN_ZAI_MAX = 5000 * 10**18; // 5000 ZAI
+
     uint256 private constant DAO_EXIT_LOCKUP_EPOCHS = 240; // 5 cycles fluid
 
     /* Pool */
@@ -152,6 +154,10 @@ library Constants {
 
     function getAdvanceIncentive() internal pure returns (uint256) {
         return ADVANCE_INCENTIVE_IN_DAI;
+    }
+
+    function getMaxAdvanceZaiIncentive() internal pure returns (uint256) {
+        return ADVANCE_INCENTIVE_IN_ZAI_MAX;
     }
 
     function getDAOExitLockupEpochs() internal pure returns (uint256) {

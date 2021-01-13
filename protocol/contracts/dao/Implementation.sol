@@ -54,7 +54,8 @@ contract Implementation is State, Bonding, Market, Regulator, Govern {
     }
 
     function advanceIncentive() public returns (uint256) {
-        return zaiMultiplier().mul(Constants.getAdvanceIncentive()).asUint256();
+        uint256 reward = zaiMultiplier().mul(Constants.getAdvanceIncentive()).asUint256();
+        return reward > Constants.getMaxAdvanceZaiIncentive() ? Constants.getMaxAdvanceZaiIncentive() : reward;
     }
 
     function advance() external {
