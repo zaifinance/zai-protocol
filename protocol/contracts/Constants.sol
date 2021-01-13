@@ -48,7 +48,7 @@ library Constants {
     uint256 private constant CURRENT_EPOCH_PERIOD = 1800;
 
     /* Governance */
-    uint256 private constant GOVERNANCE_PERIOD = 144; // 3 cycles
+    uint256 private constant GOVERNANCE_PERIOD = 48; // 1 cycle
     uint256 private constant GOVERNANCE_EXPIRATION = 48;
     uint256 private constant GOVERNANCE_QUORUM = 20e16; // 20%
     uint256 private constant GOVERNANCE_PROPOSAL_THRESHOLD = 5e15; // 0.5%
