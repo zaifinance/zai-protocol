@@ -54,7 +54,7 @@ contract Regulator is Comptroller {
 
     function shrinkSupply(Decimal.D256 memory price) private {
         Decimal.D256 memory delta = limit(Decimal.one().sub(price), price);
-        uint256 newDebt = delta.mul(totalNet()).asUint256();
+        uint256 newDebt = delta.mul(totalNet()).mul(4).asUint256();
         uint256 cappedNewDebt = increaseDebt(newDebt);
 
         emit SupplyDecrease(epoch(), price.value, cappedNewDebt);
@@ -65,7 +65,7 @@ contract Regulator is Comptroller {
         uint256 lessDebt = resetDebt(Decimal.zero());
 
         Decimal.D256 memory delta = limit(price.sub(Decimal.one()), price);
-        uint256 newSupply = delta.mul(totalNet()).asUint256();
+        uint256 newSupply = delta.mul(totalNet()).mul(4).asUint256();
         (uint256 newRedeemable, uint256 newBonded) = increaseSupply(newSupply);
         emit SupplyIncrease(
             epoch(),
@@ -106,6 +106,6 @@ contract Regulator is Comptroller {
         }
 
         // Note: Price comes in x 1e12, normalize here
-        return price.div(1e12);
+        return price.div(1e12).mul(4);
     }
 }
